@@ -27,10 +27,12 @@ using System.Xml;
 using log4net.Util;
 using log4net.Core;
 
+#if !NETMF
 namespace log4net.Layout
 {
 	/// <summary>
 	/// Layout that formats the log events as XML elements.
+	/// \todo This whole class has been missed out as we don't have an XMLWriter class that works in NETMF. Need to come up with an alternate solution.
 	/// </summary>
 	/// <remarks>
 	/// <para>
@@ -248,3 +250,4 @@ namespace log4net.Layout
 		#endregion Private Instance Fields
 	}
 }
+#endif

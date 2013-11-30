@@ -58,7 +58,19 @@ namespace log4net.Config
 
 		#region Configure static methods
 
-#if !NETCF
+        /// <summary>
+        /// utility property to get the difference between NEMF assemblies and big assemblies
+        /// </summary>
+	    private static Assembly CallingAssembly
+	    {
+#if !NETMF
+	        get { return Assembly.GetCallingAssembly(); }
+#else
+            get { return Assembly.GetExecutingAssembly(); }
+#endif
+	    }
+
+#if !NETCF && !NETMF
 		/// <summary>
 		/// Automatically configures the log4net system based on the 
 		/// application's configuration settings.
@@ -96,10 +108,10 @@ namespace log4net.Config
 #endif
         static public ICollection Configure()
         {
-            return Configure(LogManager.GetRepository(Assembly.GetCallingAssembly()));
+            return Configure(LogManager.GetRepository(CallingAssembly));
         }
 
-#if !NETCF
+#if !NETCF && !NETMF
         /// <summary>
         /// Automatically configures the <see cref="ILoggerRepository"/> using settings
         /// stored in the application's configuration file.
@@ -164,7 +176,7 @@ namespace log4net.Config
 				LogLog.Debug(declaringType, "Application config file location unknown");
 			}
 
-#if NETCF
+#if NETCF || NETMF
 			// No config file reading stuff. Just go straight for the file
 			Configure(repository, new FileInfo(SystemInfo.ConfigurationFileLocation));
 #else
@@ -204,6 +216,7 @@ namespace log4net.Config
 #endif
 		}
 
+#if !NETMF
 		/// <summary>
 		/// Configures log4net using a <c>log4net</c> element
 		/// </summary>
@@ -218,7 +231,7 @@ namespace log4net.Config
 		{
             ArrayList configurationMessages = new ArrayList();
 
-            ILoggerRepository repository = LogManager.GetRepository(Assembly.GetCallingAssembly());
+            ILoggerRepository repository = LogManager.GetRepository(CallingAssembly);
 
             using (new LogLog.LogReceivedAdapter(configurationMessages))
             {
@@ -229,7 +242,9 @@ namespace log4net.Config
 
             return configurationMessages;
 		}
+#endif
 
+#if !NETMF
 		/// <summary>
 		/// Configures the <see cref="ILoggerRepository"/> using the specified XML 
 		/// element.
@@ -255,8 +270,9 @@ namespace log4net.Config
 
             return configurationMessages;
 		}
+#endif
 
-#if !NETCF
+#if !NETCF && !NETMF
 		/// <summary>
 		/// Configures log4net using the specified configuration file.
 		/// </summary>
@@ -349,7 +365,7 @@ namespace log4net.Config
 
             using (new LogLog.LogReceivedAdapter(configurationMessages))
             {
-                InternalConfigure(LogManager.GetRepository(Assembly.GetCallingAssembly()), configFile);
+                InternalConfigure(LogManager.GetRepository(CallingAssembly), configFile);
             }
 
             return configurationMessages;
@@ -373,7 +389,7 @@ namespace log4net.Config
 		{
             ArrayList configurationMessages = new ArrayList();
 
-            ILoggerRepository repository = LogManager.GetRepository(Assembly.GetCallingAssembly());
+            ILoggerRepository repository = LogManager.GetRepository(CallingAssembly);
 
             using (new LogLog.LogReceivedAdapter(configurationMessages))
             {
@@ -403,7 +419,7 @@ namespace log4net.Config
 		{
             ArrayList configurationMessages = new ArrayList();
 
-            ILoggerRepository repository = LogManager.GetRepository(Assembly.GetCallingAssembly());
+            ILoggerRepository repository = LogManager.GetRepository(CallingAssembly);
 
             using (new LogLog.LogReceivedAdapter(configurationMessages))
             {
@@ -543,7 +559,11 @@ namespace log4net.Config
 					{
 						try
 						{
+#if NETMF
+                            fs = File.OpenRead(configFile.FullName);
+#else
 							fs = configFile.Open(FileMode.Open, FileAccess.Read, FileShare.Read);
+#endif
 							break;
 						}
 						catch(IOException ex)
@@ -620,12 +640,14 @@ namespace log4net.Config
 			}
 			else
 			{
+#if !NETMF
 				if (configUri.IsFile)
 				{
 					// If URI is local file then call Configure with FileInfo
 					InternalConfigure(repository, new FileInfo(configUri.LocalPath));
 				}
 				else
+#endif
 				{
 					// NETCF dose not support WebClient
 					WebRequest configRequest = null;
@@ -641,7 +663,7 @@ namespace log4net.Config
 
 					if (configRequest != null)
 					{
-#if !NETCF_1_0
+#if !NETCF_1_0 && !NETMF
 						// authentication may be required, set client to use default credentials
 						try
 						{
@@ -721,10 +743,11 @@ namespace log4net.Config
 			else
 			{
 				// Load the config file into a document
+                /// \todo This is all horribly wrong on NETMF - there ISN'T an XmlDocument so you need to read the config the old fashioned way
 				XmlDocument doc = new XmlDocument();
 				try
 				{
-#if (NETCF)
+#if NETCF || NETMF
 					// Create a text reader for the file stream
 					XmlTextReader xmlReader = new XmlTextReader(configStream);
 #elif NET_2_0
@@ -814,7 +837,7 @@ namespace log4net.Config
 		{
             ArrayList configurationMessages = new ArrayList();
 
-            ILoggerRepository repository = LogManager.GetRepository(Assembly.GetCallingAssembly());
+            ILoggerRepository repository = LogManager.GetRepository(CallingAssembly);
 
             using (new LogLog.LogReceivedAdapter(configurationMessages))
             {
@@ -1076,7 +1099,7 @@ namespace log4net.Config
 		/// to load the configuration from an <see cref="XmlElement"/>.
 		/// </para>
 		/// </remarks>
-		static private void InternalConfigureFromXml(ILoggerRepository repository, XmlElement element) 
+        static private void InternalConfigureFromXml(ILoggerRepository repository, XmlElement element) 
 		{
 			if (element == null)
 			{

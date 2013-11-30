@@ -27,10 +27,12 @@ using System.IO;
 using log4net.Core;
 using log4net.Util;
 
+#if !NETMF
 namespace log4net.Layout
 {
 	/// <summary>
 	/// Layout that formats the log events as XML elements compatible with the log4j schema
+	/// \todo This whole class has been missed out as we don't have an XMLWriter class that works in NETMF. Need to come up with an alternate solution.
 	/// </summary>
 	/// <remarks>
 	/// <para>
@@ -251,4 +253,4 @@ method="run" file="Generator.java" line="94"/>
 		}
 	}
 }
-
+#endif

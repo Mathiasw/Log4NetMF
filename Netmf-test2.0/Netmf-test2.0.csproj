@@ -169,6 +169,7 @@
     <Compile Include="NDC.cs" />
     <Compile Include="NETMF Additions\IDictionaryEnumerator.cs" />
     <Compile Include="NETMF Additions\StringWriter.cs" />
+    <Compile Include="NETMF Additions\UdpClient.cs" />
     <Compile Include="ObjectRenderer\DefaultRenderer.cs" />
     <Compile Include="ObjectRenderer\IObjectRenderer.cs" />
     <Compile Include="ObjectRenderer\RendererMap.cs" />

@@ -19,9 +19,7 @@
 
 using System;
 #if !NETMF
-
 using System.Xml;
-
 #endif
 
 using System.Collections;
@@ -33,6 +31,8 @@ using log4net.Appender;
 using log4net.Util;
 using log4net.Repository;
 
+/// \todo The whole of this file has been marked as obsolete, so it's not even compiled at all.
+#if !NETMF
 namespace log4net.Config
 {
 	/// <summary>
@@ -292,7 +292,7 @@ namespace log4net.Config
 
 		#region ConfigureAndWatch static methods
 
-#if (!NETCF && !SSCLI)
+#if (!NETCF && !SSCLI && !NETMF)
 
 		/// <summary>
 		/// Configures log4net using the file specified, monitors the file for changes 
@@ -360,4 +360,4 @@ namespace log4net.Config
 		#endregion ConfigureAndWatch static methods
 	}
 }
-
+#endif

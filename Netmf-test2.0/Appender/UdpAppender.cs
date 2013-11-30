@@ -218,11 +218,19 @@ namespace log4net.Appender
 			{
 				if (value < IPEndPoint.MinPort || value > IPEndPoint.MaxPort) 
 				{
+#if !NETMF
 					throw log4net.Util.SystemInfo.CreateArgumentOutOfRangeException("value", (object)value,
 						"The value specified is less than " + 
 						IPEndPoint.MinPort.ToString(NumberFormatInfo.InvariantInfo) + 
 						" or greater than " + 
 						IPEndPoint.MaxPort.ToString(NumberFormatInfo.InvariantInfo) + ".");
+#else
+					throw log4net.Util.SystemInfo.CreateArgumentOutOfRangeException("value", (object)value,
+						"The value specified is less than " + 
+						IPEndPoint.MinPort.ToString() + 
+						" or greater than " + 
+						IPEndPoint.MaxPort.ToString() + ".");
+#endif
 				} 
 				else 
 				{
@@ -255,11 +263,19 @@ namespace log4net.Appender
 			{
 				if (value != 0 && (value < IPEndPoint.MinPort || value > IPEndPoint.MaxPort))
 				{
+#if !NETMF
 					throw log4net.Util.SystemInfo.CreateArgumentOutOfRangeException("value", (object)value,
 						"The value specified is less than " + 
 						IPEndPoint.MinPort.ToString(NumberFormatInfo.InvariantInfo) + 
 						" or greater than " + 
 						IPEndPoint.MaxPort.ToString(NumberFormatInfo.InvariantInfo) + ".");
+#else
+					throw log4net.Util.SystemInfo.CreateArgumentOutOfRangeException("value", (object)value,
+						"The value specified is less than " + 
+						IPEndPoint.MinPort.ToString() + 
+						" or greater than " + 
+						IPEndPoint.MaxPort.ToString() + ".");
+#endif
 				} 
 				else 
 				{
@@ -361,20 +377,36 @@ namespace log4net.Appender
 			} 
 			else if (this.RemotePort < IPEndPoint.MinPort || this.RemotePort > IPEndPoint.MaxPort) 
 			{
+#if !NETMF
 				throw log4net.Util.SystemInfo.CreateArgumentOutOfRangeException("this.RemotePort", (object)this.RemotePort,
 					"The RemotePort is less than " + 
 					IPEndPoint.MinPort.ToString(NumberFormatInfo.InvariantInfo) + 
 					" or greater than " + 
 					IPEndPoint.MaxPort.ToString(NumberFormatInfo.InvariantInfo) + ".");
+#else
+                throw log4net.Util.SystemInfo.CreateArgumentOutOfRangeException("this.RemotePort", (object)this.RemotePort,
+                    "The RemotePort is less than " +
+                    IPEndPoint.MinPort.ToString() +
+                    " or greater than " +
+                    IPEndPoint.MaxPort.ToString() + ".");
+#endif
 			} 
 			else if (this.LocalPort != 0 && (this.LocalPort < IPEndPoint.MinPort || this.LocalPort > IPEndPoint.MaxPort))
 			{
+#if !NETMF
 				throw log4net.Util.SystemInfo.CreateArgumentOutOfRangeException("this.LocalPort", (object)this.LocalPort,
 					"The LocalPort is less than " + 
 					IPEndPoint.MinPort.ToString(NumberFormatInfo.InvariantInfo) + 
 					" or greater than " + 
 					IPEndPoint.MaxPort.ToString(NumberFormatInfo.InvariantInfo) + ".");
-			} 
+#else
+                throw log4net.Util.SystemInfo.CreateArgumentOutOfRangeException("this.LocalPort", (object)this.LocalPort,
+                    "The LocalPort is less than " +
+                    IPEndPoint.MinPort.ToString() +
+                    " or greater than " +
+                    IPEndPoint.MaxPort.ToString() + ".");
+#endif
+            } 
 			else 
 			{
 				this.RemoteEndPoint = new IPEndPoint(this.RemoteAddress, this.RemotePort);
@@ -402,7 +434,12 @@ namespace log4net.Appender
 		{
 			try 
 			{
+#if !NETMF
 				Byte [] buffer = m_encoding.GetBytes(RenderLoggingEvent(loggingEvent).ToCharArray());
+#else
+			    string s = RenderLoggingEvent(loggingEvent);
+			    Byte[] buffer = m_encoding.GetBytes(s);
+#endif
 				this.Client.Send(buffer, buffer.Length, this.RemoteEndPoint);
 			} 
 			catch (Exception ex) 
@@ -474,7 +511,7 @@ namespace log4net.Appender
 			{
 				if (this.LocalPort == 0)
 				{
-#if NETCF || NET_1_0 || SSCLI_1_0 || CLI_1_0
+#if NETCF || NET_1_0 || SSCLI_1_0 || CLI_1_0 || NETMF
 					this.Client = new UdpClient();
 #else
 					this.Client = new UdpClient(RemoteAddress.AddressFamily);
@@ -482,7 +519,7 @@ namespace log4net.Appender
 				}
 				else
 				{
-#if NETCF || NET_1_0 || SSCLI_1_0 || CLI_1_0
+#if NETCF || NET_1_0 || SSCLI_1_0 || CLI_1_0 || NETMF
 					this.Client = new UdpClient(this.LocalPort);
 #else
 					this.Client = new UdpClient(this.LocalPort, RemoteAddress.AddressFamily);
@@ -493,7 +530,11 @@ namespace log4net.Appender
 			{
 				ErrorHandler.Error(
 					"Could not initialize the UdpClient connection on port " + 
+#if !NETMF
 					this.LocalPort.ToString(NumberFormatInfo.InvariantInfo) + ".", 
+#else
+                    this.LocalPort.ToString() + ".",
+#endif
 					ex, 
 					ErrorCode.GenericFailure);
 
@@ -530,13 +571,18 @@ namespace log4net.Appender
 		/// <summary>
 		/// The <see cref="UdpClient" /> instance that will be used for sending the 
 		/// logging events.
+		/// \todo Needs re-instatement with a real network connection
 		/// </summary>
 		private UdpClient m_client;
 
-		/// <summary>
+        /// <summary>
 		/// The encoding to use for the packet.
 		/// </summary>
+#if !NETMF
 		private Encoding m_encoding = Encoding.Default;
+#else
+        private Encoding m_encoding = Encoding.UTF8;
+#endif
 
 		#endregion Private Instance Fields
 	}
