@@ -32,7 +32,7 @@ using System.Runtime.CompilerServices;
 //
 [assembly: System.CLSCompliant(true)]
 
-#if (!NETCF)
+#if (!NETCF) && (!MF_FRAMEWORK_VERSION_V4_2)
 //
 // If log4net is strongly named it still allows partially trusted callers
 //
@@ -64,6 +64,12 @@ using System.Runtime.CompilerServices;
 [assembly: AssemblyTitle("Apache log4net for .NET Framework 4.0 Client Profile")]
 #else
 [assembly: AssemblyTitle("Apache log4net for .NET Framework 4.0")]
+#endif // Client Profile
+#elif (MF_FRAMEWORK_VERSION_V4_2)
+#if CLIENT_PROFILE
+[assembly: AssemblyTitle("Apache log4net for .NET Framework 3.5 Client Profile")]
+#else
+[assembly: AssemblyTitle("Apache log4net for .NETMF 4.2 (based on .NET Framework 2.0)")]
 #endif // Client Profile
 #elif (NET_2_0)
 #if CLIENT_PROFILE
