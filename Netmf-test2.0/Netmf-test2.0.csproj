@@ -283,6 +283,7 @@
     <Reference Include="System.Xml.Legacy" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="NETMF Additions\" />
     <Folder Include="Properties\" />
   </ItemGroup>
 </Project>

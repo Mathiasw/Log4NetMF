@@ -33,8 +33,13 @@ namespace log4net.Util
 	/// </remarks>
 	/// <author>Nicko Cadell</author>
 	/// <author>Gert Driesen</author>
+#if NETMF
+	public sealed class NullDictionaryEnumerator : IEnumerator
+#else
 	public sealed class NullDictionaryEnumerator : IDictionaryEnumerator
-	{
+#endif
+
+    {
 		#region Private Instance Constructors
 
 		/// <summary>

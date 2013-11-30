@@ -229,12 +229,19 @@ namespace log4net.Util
 		/// As the collection is empty a <see cref="NullEnumerator"/> is returned.
 		/// </para>
 		/// </remarks>
+#if NETMF
+		public IEnumerator GetEnumerator()
+		{
+			return NullDictionaryEnumerator.Instance;
+		}
+#else
 		public IDictionaryEnumerator GetEnumerator()
 		{
 			return NullDictionaryEnumerator.Instance;
 		}
+#endif
 
-		/// <summary>
+        /// <summary>
 		/// Removes the element with the specified key from the <see cref="EmptyDictionary" />.
 		/// </summary>
 		/// <param name="key">The key of the element to remove.</param>
