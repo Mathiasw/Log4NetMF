@@ -147,10 +147,12 @@ namespace log4net.Util
 		/// Returns a <see cref="IDictionaryEnumerator"/> over the contest of this collection.
 		/// </para>
 		/// </remarks>
-		IDictionaryEnumerator IDictionary.GetEnumerator()
+#if !NETMF
+        IDictionaryEnumerator IDictionary.GetEnumerator()
 		{
 			return InnerHashtable.GetEnumerator();
 		}
+#endif
 
 		/// <summary>
 		/// See <see cref="IDictionary.Remove"/>

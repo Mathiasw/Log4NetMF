@@ -323,12 +323,8 @@ namespace log4net.Util
 		/// the object's ToString method is called.
 		/// </para>
 		/// </remarks>
-#if NETMF
-		protected static void WriteDictionary(TextWriter writer, ILoggerRepository repository, IEnumerator value)
-#else
 		protected static void WriteDictionary(TextWriter writer, ILoggerRepository repository, IDictionaryEnumerator value)
-#endif
-        {
+		{
 			writer.Write("{");
 
 			bool first = true;
