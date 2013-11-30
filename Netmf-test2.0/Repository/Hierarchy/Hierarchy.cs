@@ -23,6 +23,9 @@ using log4net.Appender;
 using log4net.Core;
 using log4net.Repository;
 using log4net.Util;
+#if NETMF
+using Microsoft.SPOT;
+#endif
 
 namespace log4net.Repository.Hierarchy
 {

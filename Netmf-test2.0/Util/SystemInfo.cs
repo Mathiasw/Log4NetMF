@@ -18,7 +18,9 @@
 #endregion
 
 using System;
+#if !NETMF
 using System.Configuration;
+#endif
 using System.Reflection;
 using System.Text;
 using System.IO;

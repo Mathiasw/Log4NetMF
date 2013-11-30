@@ -19,7 +19,12 @@
 
 using System;
 using System.Text;
+#if !NETMF
+
 using System.Xml;
+
+#endif
+
 using System.Text.RegularExpressions;
 
 namespace log4net.Util

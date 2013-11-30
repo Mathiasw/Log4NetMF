@@ -26,6 +26,7 @@
 #if !MONO_1_0
 #if !NET_1_0
 #if !NET_1_1
+#if !NETMF
 
 // The original ColoredConsoleAppender was written before the .NET framework
 // (and Mono) had built-in support for console colors so it was written using
@@ -346,3 +347,4 @@ namespace log4net.Appender
 #endif // !CLI_1_0
 #endif // !SSCLI
 #endif // !NETCF
+#endif // !NETMF

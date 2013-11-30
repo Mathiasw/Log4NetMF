@@ -22,6 +22,9 @@ using System.Globalization;
 
 using log4net.Repository;
 using log4net.Util;
+#if NETMF
+using Microsoft.SPOT;
+#endif
 
 namespace log4net.Core
 {

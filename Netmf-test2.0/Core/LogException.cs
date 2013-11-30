@@ -18,7 +18,7 @@
 #endregion
 
 using System;
-#if !NETCF
+#if !NETCF && !NETMF
 using System.Runtime.Serialization;
 #endif
 
@@ -88,7 +88,7 @@ namespace log4net.Core
 
 		#region Protected Instance Constructors
 
-#if !NETCF
+#if !NETCF && !NETMF
 		/// <summary>
 		/// Serialization constructor
 		/// </summary>

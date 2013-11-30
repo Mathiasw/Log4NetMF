@@ -22,6 +22,10 @@ using System.Collections;
 
 using log4net.Repository;
 
+#if NETMF
+using Microsoft.SPOT;
+#endif
+
 namespace log4net.Core
 {
 	#region WrapperCreationHandler

@@ -23,6 +23,8 @@
 #if !NETCF 
 // SSCLI 1.0 has no support for EventLog
 #if !SSCLI
+// NETMF has no support for EventLog
+#if !NETMF
 
 using System;
 using System.Diagnostics;
@@ -352,7 +354,7 @@ namespace log4net.Appender
 		/// </remarks>
 		private static void CreateEventSource(string source, string logName, string machineName)
 		{
-#if NET_2_0
+#if NET_2_0 
 			EventSourceCreationData eventSourceCreationData = new EventSourceCreationData(source, logName);
 			eventSourceCreationData.MachineName = machineName;
 			EventLog.CreateEventSource(eventSourceCreationData);
@@ -686,5 +688,6 @@ namespace log4net.Appender
 	}
 }
 
+#endif // !NETMF
 #endif // !SSCLI
 #endif // !NETCF

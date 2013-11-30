@@ -21,13 +21,17 @@ using System;
 using System.Collections;
 using System.Globalization;
 using System.Reflection;
+#if !NETMF
 using System.Xml;
+#endif
+
 
 using log4net.Appender;
 using log4net.Util;
 using log4net.Core;
 using log4net.ObjectRenderer;
 
+#if !NETMF
 namespace log4net.Repository.Hierarchy
 {
 	/// <summary>
@@ -1122,3 +1126,4 @@ namespace log4net.Repository.Hierarchy
 	    #endregion Private Static Fields
 	}
 }
+#endif

@@ -23,6 +23,7 @@
 #if !SSCLI
 // We don't want framework or platform specific code in the CLI version of log4net
 #if !CLI_1_0
+#if !NETMF
 
 using System;
 using System.Globalization;
@@ -285,6 +286,7 @@ namespace log4net.Util
 	}
 }
 
+#endif
 #endif // !CLI_1_0
 #endif // !SSCLI
 #endif // !MONO

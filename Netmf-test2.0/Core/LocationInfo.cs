@@ -271,7 +271,7 @@ namespace log4net.Core
 			get { return m_fullInfo; }
 		}
 		
-#if !NETCF
+#if !NETCF && !NETMF
 		/// <summary>
 		/// Gets the stack frames from the stack trace of the caller making the log request
 		/// </summary>
@@ -290,15 +290,15 @@ namespace log4net.Core
 		private readonly string m_lineNumber;
 		private readonly string m_methodName;
 		private readonly string m_fullInfo;
-#if !NETCF
+#if !NETCF && !NETMF
 		private readonly StackFrameItem[] m_stackFrames;
 #endif
 
-		#endregion Private Instance Fields
+        #endregion Private Instance Fields
 
-		#region Private Static Fields
+        #region Private Static Fields
 
-	    /// <summary>
+        /// <summary>
 	    /// The fully qualified type of the LocationInfo class.
 	    /// </summary>
 	    /// <remarks>

@@ -19,7 +19,9 @@
 
 using System;
 using System.Collections;
+#if !NETMF
 using System.Collections.Specialized;
+#endif
 
 using log4net.Util;
 

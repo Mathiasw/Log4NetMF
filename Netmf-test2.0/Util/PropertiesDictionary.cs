@@ -19,7 +19,7 @@
 
 using System;
 using System.Collections;
-#if !NETCF
+#if !NETCF && !NETMF
 using System.Runtime.Serialization;
 using System.Xml;
 #endif
@@ -38,7 +38,7 @@ namespace log4net.Util
 	/// </remarks>
 	/// <author>Nicko Cadell</author>
 	/// <author>Gert Driesen</author>
-#if NETCF
+#if NETCF || NETMF
 	public sealed class PropertiesDictionary : ReadOnlyPropertiesDictionary, IDictionary
 #else
 	[Serializable] public sealed class PropertiesDictionary : ReadOnlyPropertiesDictionary, ISerializable, IDictionary
@@ -75,7 +75,7 @@ namespace log4net.Util
 
 		#region Private Instance Constructors
 
-#if !NETCF
+#if !NETCF && !NETMF
 		/// <summary>
 		/// Initializes a new instance of the <see cref="PropertiesDictionary" /> class 
 		/// with serialized data.
@@ -92,11 +92,11 @@ namespace log4net.Util
 		}
 #endif
 
-		#endregion Protected Instance Constructors
+        #endregion Protected Instance Constructors
 
-		#region Public Instance Properties
+        #region Public Instance Properties
 
-		/// <summary>
+        /// <summary>
 		/// Gets or sets the value of the  property with the specified key.
 		/// </summary>
 		/// <value>

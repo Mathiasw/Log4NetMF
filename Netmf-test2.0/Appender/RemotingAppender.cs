@@ -18,7 +18,7 @@
 #endregion
 
 // .NET Compact Framework 1.0 has no support for System.Runtime.Remoting
-#if !NETCF
+#if !NETCF && !NETMF
 
 using System;
 using System.Collections;
@@ -80,7 +80,7 @@ namespace log4net.Appender
 	/// <author>Daniel Cazzulino</author>
 	public class RemotingAppender : BufferingAppenderSkeleton
 	{
-		#region Public Instance Constructors
+#region Public Instance Constructors
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="RemotingAppender" /> class.
@@ -94,9 +94,9 @@ namespace log4net.Appender
 		{
 		}
 
-		#endregion Public Instance Constructors
+        #endregion Public Instance Constructors
 
-		#region Public Instance Properties
+#region Public Instance Properties
 
 		/// <summary>
 		/// Gets or sets the URL of the well-known object that will accept 
@@ -118,9 +118,9 @@ namespace log4net.Appender
 			set { m_sinkUrl = value; }
 		}
 
-		#endregion Public Instance Properties
+        #endregion Public Instance Properties
 
-		#region Implementation of IOptionHandler
+#region Implementation of IOptionHandler
 
 		/// <summary>
 		/// Initialize the appender based on the options set
@@ -151,9 +151,9 @@ namespace log4net.Appender
 			m_sinkObj = (IRemoteLoggingSink)Activator.GetObject(typeof(IRemoteLoggingSink), m_sinkUrl, channelProperties);
 		}
 
-		#endregion
+        #endregion
 
-		#region Override implementation of BufferingAppenderSkeleton
+#region Override implementation of BufferingAppenderSkeleton
 
 		/// <summary>
 		/// Send the contents of the buffer to the remote sink.
@@ -218,7 +218,7 @@ namespace log4net.Appender
 			}
 		}
 
-		#endregion
+        #endregion
 
 		/// <summary>
 		/// A work item is being queued into the thread pool
@@ -273,7 +273,7 @@ namespace log4net.Appender
 			}
 		}
 
-		#region Private Instance Fields
+#region Private Instance Fields
 
 		/// <summary>
 		/// The URL of the remote sink.
@@ -299,7 +299,7 @@ namespace log4net.Appender
 		/// </remarks>
 		private ManualResetEvent m_workQueueEmptyEvent = new ManualResetEvent(true);
 
-		#endregion Private Instance Fields
+        #endregion Private Instance Fields
 
 		/// <summary>
 		/// Interface used to deliver <see cref="LoggingEvent"/> objects to a remote sink.

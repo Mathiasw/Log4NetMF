@@ -17,7 +17,7 @@
 //
 #endregion
 
-#if (!NETCF)
+#if !NETCF && !NETMF
 #define HAS_READERWRITERLOCK
 #endif
 #if (NET_4_0)

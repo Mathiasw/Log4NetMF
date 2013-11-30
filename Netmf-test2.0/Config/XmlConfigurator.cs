@@ -18,7 +18,9 @@
 #endregion
 
 using System;
+
 using System.Xml;
+
 using System.Collections;
 using System.IO;
 using System.Reflection;
@@ -906,7 +908,7 @@ namespace log4net.Config
 
 		#region ConfigureAndWatchHandler
 
-#if (!NETCF && !SSCLI)
+#if (!NETCF && !SSCLI && !NETMF)
 		/// <summary>
 		/// Class used to watch config files.
 		/// </summary>

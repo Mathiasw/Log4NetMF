@@ -638,7 +638,7 @@ namespace log4net.Appender
 			}
 		}
 
-#if !NETCF
+#if !NETCF && !NETMF
         /// <summary>
         /// Provides cross-process file locking.
         /// </summary>

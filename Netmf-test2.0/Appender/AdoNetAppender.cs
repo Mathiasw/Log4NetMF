@@ -18,7 +18,8 @@
 #endregion
 
 // SSCLI 1.0 has no support for ADO.NET
-#if !SSCLI
+// NETMF has no support for it either
+#if !SSCLI && !NETMF
 
 using System;
 using System.Collections;
@@ -124,7 +125,7 @@ namespace log4net.Appender
 	/// <author>Lance Nehring</author>
 	public class AdoNetAppender : BufferingAppenderSkeleton
 	{
-		#region Public Instance Constructors
+#region Public Instance Constructors
 
 		/// <summary> 
 		/// Initializes a new instance of the <see cref="AdoNetAppender" /> class.
@@ -141,9 +142,9 @@ namespace log4net.Appender
 			m_reconnectOnError = false;
 		}
 
-		#endregion // Public Instance Constructors
+        #endregion // Public Instance Constructors
 
-		#region Public Instance Properties
+#region Public Instance Properties
 
 		/// <summary>
 		/// Gets or sets the database connection string that is used to connect to 
@@ -357,9 +358,9 @@ namespace log4net.Appender
 			set { m_reconnectOnError = value; }
 		}
 
-		#endregion // Public Instance Properties
+        #endregion // Public Instance Properties
 
-		#region Protected Instance Properties
+#region Protected Instance Properties
 
 		/// <summary>
 		/// Gets or sets the underlying <see cref="IDbConnection" />.
@@ -380,9 +381,9 @@ namespace log4net.Appender
 			set { m_dbConnection = value; }
 		}
 
-		#endregion // Protected Instance Properties
+        #endregion // Protected Instance Properties
 
-		#region Implementation of IOptionHandler
+#region Implementation of IOptionHandler
 
 		/// <summary>
 		/// Initialize the appender based on the options set
@@ -416,9 +417,9 @@ namespace log4net.Appender
 			InitializeDatabaseCommand();
 		}
 
-		#endregion
+        #endregion
 
-		#region Override implementation of AppenderSkeleton
+#region Override implementation of AppenderSkeleton
 
 		/// <summary>
 		/// Override the parent method to close the database
@@ -435,9 +436,9 @@ namespace log4net.Appender
             DiposeConnection();
 		}
 
-		#endregion
+        #endregion
 
-		#region Override implementation of BufferingAppenderSkeleton
+#region Override implementation of BufferingAppenderSkeleton
 
 		/// <summary>
 		/// Inserts the events into the database.
@@ -503,9 +504,9 @@ namespace log4net.Appender
 			}
 		}
 
-		#endregion // Override implementation of BufferingAppenderSkeleton
+        #endregion // Override implementation of BufferingAppenderSkeleton
 
-		#region Public Instance Methods
+#region Public Instance Methods
 
 		/// <summary>
 		/// Adds a parameter to the command.
@@ -522,9 +523,9 @@ namespace log4net.Appender
 		}
 
 
-		#endregion // Public Instance Methods
+        #endregion // Public Instance Methods
 
-		#region Protected Instance Methods
+#region Protected Instance Methods
 
 		/// <summary>
 		/// Writes the events to the database using the transaction specified.
@@ -708,9 +709,9 @@ namespace log4net.Appender
 			}
 		}
 
-		#endregion // Protected Instance Methods
+        #endregion // Protected Instance Methods
 
-        #region Private Instance Methods
+#region Private Instance Methods
 
         /// <summary>
         /// Prepares the database command and initialize the parameters.
@@ -862,7 +863,7 @@ namespace log4net.Appender
 
         #endregion // Private Instance Methods
 
-        #region Protected Instance Fields
+#region Protected Instance Fields
 
         /// <summary>
 		/// Flag to indicate if we are using a command object
@@ -885,9 +886,9 @@ namespace log4net.Appender
 		/// </remarks>
 		protected ArrayList m_parameters;
 
-		#endregion // Protected Instance Fields
+        #endregion // Protected Instance Fields
 
-		#region Private Instance Fields
+#region Private Instance Fields
 
 		/// <summary>
 		/// The security context to use for privileged calls
@@ -947,9 +948,9 @@ namespace log4net.Appender
 		/// </summary>
 		private bool m_reconnectOnError;
 
-		#endregion // Private Instance Fields
+        #endregion // Private Instance Fields
 
-        #region Private Static Fields
+#region Private Static Fields
 
         /// <summary>
         /// The fully qualified type of the AdoNetAppender class.
@@ -978,7 +979,7 @@ namespace log4net.Appender
 	/// </remarks>
 	public class AdoNetAppenderParameter
 	{
-		#region Public Instance Constructors
+#region Public Instance Constructors
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="AdoNetAppenderParameter" /> class.
@@ -993,9 +994,9 @@ namespace log4net.Appender
 			m_size = 0;
 		}
 
-		#endregion // Public Instance Constructors
+        #endregion // Public Instance Constructors
 
-		#region Public Instance Properties
+#region Public Instance Properties
 
 		/// <summary>
 		/// Gets or sets the name of this parameter.
@@ -1139,9 +1140,9 @@ namespace log4net.Appender
 			set { m_layout = value; }
 		}
 
-		#endregion // Public Instance Properties
+        #endregion // Public Instance Properties
 
-		#region Public Instance Methods
+#region Public Instance Methods
 
 		/// <summary>
 		/// Prepare the specified database command object.
@@ -1210,9 +1211,9 @@ namespace log4net.Appender
 			param.Value = formattedValue;
 		}
 
-		#endregion // Public Instance Methods
+        #endregion // Public Instance Methods
 
-		#region Private Instance Fields
+#region Private Instance Fields
 
 		/// <summary>
 		/// The name of this parameter.
@@ -1250,7 +1251,7 @@ namespace log4net.Appender
 		/// </summary>
 		private IRawLayout m_layout;
 
-		#endregion // Private Instance Fields
+        #endregion // Private Instance Fields
 	}
 }
 

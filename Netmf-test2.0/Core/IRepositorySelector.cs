@@ -19,7 +19,9 @@
 
 using System;
 using System.Reflection;
-
+#if NETMF
+using Microsoft.SPOT;
+#endif
 using log4net.Repository;
 
 namespace log4net.Core

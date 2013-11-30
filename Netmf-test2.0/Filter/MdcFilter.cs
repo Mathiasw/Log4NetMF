@@ -18,7 +18,9 @@
 #endregion
 
 using System;
+#if !NETMF
 using System.Text.RegularExpressions;
+#endif
 
 using log4net;
 using log4net.Core;

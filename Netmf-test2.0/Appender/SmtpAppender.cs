@@ -19,12 +19,15 @@
 
 // .NET Compact Framework 1.0 has no support for System.Web.Mail
 // SSCLI 1.0 has no support for System.Web.Mail
-#if !NETCF && !SSCLI
+// METMF has support for mail, but it needs to be added in
+/// \todo Add mail support in later
+#if !NETCF && !SSCLI && !NETMF
 
 using System;
 using System.IO;
 using System.Text;
 
+//  need to use the special mail functions - for the 
 #if NET_2_0
 using System.Net.Mail;
 #else

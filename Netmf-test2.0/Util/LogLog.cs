@@ -19,8 +19,13 @@
 
 using System;
 using System.Collections;
+#if !NETMF
 using System.Configuration;
+#endif
 using System.Diagnostics;
+#if NETMF
+using Microsoft.SPOT;
+#endif
 
 namespace log4net.Util
 {
@@ -531,11 +536,14 @@ namespace log4net.Util
 #if NETCF
 				Console.WriteLine(message);
 				//System.Diagnostics.Debug.WriteLine(message);
+#elif NETMF
+                Debug.Print(message);
+                Trace.Print(message);
 #else
 				Console.Out.WriteLine(message);
 				Trace.WriteLine(message);
 #endif
-			}
+            }
 			catch
 			{
 				// Ignore exception, what else can we do? Not really a good idea to propagate back to the caller
@@ -565,6 +573,9 @@ namespace log4net.Util
 #if NETCF
 				Console.WriteLine(message);
 				//System.Diagnostics.Debug.WriteLine(message);
+#elif NETMF
+                Debug.Print(message);
+                Trace.Print(message);
 #else
 				Console.Error.WriteLine(message);
 				Trace.WriteLine(message);

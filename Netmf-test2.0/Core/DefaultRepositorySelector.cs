@@ -19,7 +19,7 @@
 
 // .NET Compact Framework 1.0 has no support for reading assembly attributes
 // and uses the CompactRepositorySelector instead
-#if !NETCF
+#if !NETCF && !NETMF
 
 using System;
 using System.Collections;

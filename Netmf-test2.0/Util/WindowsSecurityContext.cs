@@ -25,6 +25,8 @@
 #if !SSCLI
 // We don't want framework or platform specific code in the CLI version of log4net
 #if !CLI_1_0
+// Nor the NETMF Version
+#if !NETMF
 
 using System;
 using System.Runtime.InteropServices;
@@ -380,6 +382,7 @@ namespace log4net.Util
 	}
 }
 
+#endif
 #endif // !CLI_1_0
 #endif // !SSCLI
 #endif // !MONO

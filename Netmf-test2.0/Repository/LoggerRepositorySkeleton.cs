@@ -23,6 +23,9 @@ using log4net.ObjectRenderer;
 using log4net.Core;
 using log4net.Util;
 using log4net.Plugin;
+#if NETMF
+using Microsoft.SPOT;
+#endif
 
 namespace log4net.Repository
 {

@@ -19,7 +19,7 @@
 
 // .NET Compact Framework 1.0 has no support for Marshal.StringToHGlobalAnsi
 // SSCLI 1.0 has no support for Marshal.StringToHGlobalAnsi
-#if !NETCF && !SSCLI
+#if !NETCF && !SSCLI && !NETMF
 
 using System;
 using System.Runtime.InteropServices;

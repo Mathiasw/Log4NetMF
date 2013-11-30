@@ -20,7 +20,9 @@
 using System;
 using System.IO;
 using System.Text;
+#if !NETMF
 using System.Xml;
+#endif
 
 using log4net.Util;
 using log4net.Core;

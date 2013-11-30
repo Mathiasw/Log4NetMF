@@ -19,7 +19,7 @@
 
 using System;
 using System.Collections;
-#if !NETCF
+#if !NETCF && !NETMF
 using System.Runtime.Serialization;
 using System.Xml;
 #endif
@@ -41,7 +41,7 @@ namespace log4net.Util
 	/// </remarks>
 	/// <author>Nicko Cadell</author>
 	/// <author>Gert Driesen</author>
-#if NETCF
+#if NETCF || NETMF
 	public class ReadOnlyPropertiesDictionary : IDictionary
 #else
 	[Serializable] public class ReadOnlyPropertiesDictionary : ISerializable, IDictionary
@@ -91,7 +91,7 @@ namespace log4net.Util
 
 		#region Private Instance Constructors
 
-#if !NETCF
+#if !NETCF && !NETMF
 		/// <summary>
 		/// Deserialization constructor
 		/// </summary>
@@ -192,7 +192,7 @@ namespace log4net.Util
 
 		#region Implementation of ISerializable
 
-#if !NETCF
+#if !NETCF && !NETMF
 		/// <summary>
 		/// Serializes this object into the <see cref="SerializationInfo" /> provided.
 		/// </summary>
@@ -203,7 +203,7 @@ namespace log4net.Util
 		/// Serializes this object into the <see cref="SerializationInfo" /> provided.
 		/// </para>
 		/// </remarks>
-#if NET_4_0
+#if NET_4_0 
         [System.Security.SecurityCritical]
 #else
 		[System.Security.Permissions.SecurityPermissionAttribute(System.Security.Permissions.SecurityAction.Demand, SerializationFormatter=true)]

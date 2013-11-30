@@ -21,6 +21,9 @@
 
 using System;
 using System.Collections;
+#if NETMF
+using Microsoft.SPOT;
+#endif
 
 namespace log4net.Repository
 {

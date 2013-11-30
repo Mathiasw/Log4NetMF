@@ -18,7 +18,7 @@
 #endregion
 
 using System;
-#if NETCF
+#if NETCF || NETMF
 using System.Collections;
 #endif
 
@@ -47,7 +47,9 @@ namespace log4net.Util
 		/// <summary>
 		/// Each thread will automatically have its instance.
 		/// </summary>
+#if !NETMF
 		[ThreadStatic]
+#endif
 		private static PropertiesDictionary _dictionary;
 #endif
 

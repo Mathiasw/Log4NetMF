@@ -18,9 +18,13 @@
 #endregion
 
 using System;
+#if !NETMF
 using System.Configuration;
+#endif
 using System.Reflection;
-
+#if NETMF
+using Microsoft.SPOT;
+#endif
 using log4net.Util;
 using log4net.Repository;
 

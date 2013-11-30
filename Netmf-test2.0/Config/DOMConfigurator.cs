@@ -18,7 +18,12 @@
 #endregion
 
 using System;
+#if !NETMF
+
 using System.Xml;
+
+#endif
+
 using System.Collections;
 using System.IO;
 using System.Reflection;

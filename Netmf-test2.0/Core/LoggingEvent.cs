@@ -20,7 +20,7 @@
 using System;
 using System.Collections;
 using System.IO;
-#if (!NETCF)
+#if !NETCF && !NETMF
 using System.Runtime.Serialization;
 using System.Security.Principal;
 #endif
@@ -291,7 +291,7 @@ namespace log4net.Core
 	[Serializable]
 #endif
 	public class LoggingEvent 
-#if !NETCF
+#if !NETCF && !NETMF
 		: ISerializable
 #endif
 	{
@@ -426,7 +426,7 @@ namespace log4net.Core
 
 		#region Protected Instance Constructors
 
-#if !NETCF
+#if !NETCF && !NETMF
 
 		/// <summary>
 		/// Serialization constructor
@@ -1005,7 +1005,7 @@ namespace log4net.Core
 
 		#region Implementation of ISerializable
 
-#if !NETCF
+#if !NETCF && !NETMF
 
 		/// <summary>
 		/// Serializes this object into the <see cref="SerializationInfo" /> provided.

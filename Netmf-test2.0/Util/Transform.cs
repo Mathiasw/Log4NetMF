@@ -19,8 +19,10 @@
 
 using System;
 using System.Text;
+#if NETMF 
 using System.Xml;
 using System.Text.RegularExpressions;
+#endif
 
 namespace log4net.Util
 {
