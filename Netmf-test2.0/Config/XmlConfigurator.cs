@@ -750,6 +750,8 @@ namespace log4net.Config
 #if NETCF || NETMF
 					// Create a text reader for the file stream
 					XmlTextReader xmlReader = new XmlTextReader(configStream);
+
+                    //  Test code - see how we read XML using the 
 #elif NET_2_0
 					// Allow the DTD to specify entity includes
 					XmlReaderSettings settings = new XmlReaderSettings();

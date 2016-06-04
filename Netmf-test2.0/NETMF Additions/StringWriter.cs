@@ -27,7 +27,7 @@ namespace System.IO
         {
             _sb = sb;
         }
-        //public override Encoding Encoding { get; }
+        public override Encoding Encoding { get { return Encoding.UTF8; }  }
         public override void Close()
         {
             
